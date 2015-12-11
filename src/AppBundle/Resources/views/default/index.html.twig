@@ -1,0 +1,90 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+   <img src="{{ asset('bundles/app/default/') }}images/topBar.jpg" class="dsb">
+    
+    <img src="{{ asset('bundles/app/default/') }}images/loftImg1.jpg" class="dsb">
+    <div class="selectLine">
+        <select name="district" id="district">
+            <option value="">选择地区</option>
+            <option>华东</option>
+            <option>华北</option>
+            <option>华南</option>
+            <option>华西</option>
+        </select>
+    </div>
+    <div class="selectLine">
+        <select name="city" id="city">
+            <option value="">选择城市</option>
+        </select>
+    </div>
+    <div class="selectLine">
+        <select name="area" id="area">
+            <option value="">仓库面积</option>
+            <option value="1">0~10000</option>
+            <option value="2">10000~20000</option>
+            <option value="3">20000~30000</option>
+            <option value="4">30000以上</option>
+        </select>
+    </div>
+    <div class="loftList">
+        <!--<div class="loftLine">
+            <img src="{{ asset('bundles/app/default/') }}images/cangkuImg.jpg" class="loftLineImg">
+            <div class="llRightInfo">
+                <div class="llName">安博上海九亭物流中心</div>
+                <div class="llBtns">
+                    <a href="loftDetail.html"><img src="{{ asset('bundles/app/default/') }}images/btn2.png"></a>
+                    <a href="visit.html"><img src="{{ asset('bundles/app/default/') }}images/btn3.png"></a>
+                </div>
+            </div>
+            <div class="clear"></div>
+        </div>
+        -->
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#district').val('');
+        $('#city').val('');
+        $('#district').change(function(){
+            var district = $('#district').val();
+            $('#city').empty().html('<option value="">选择城市</option>');
+            var url = '{{ url("_city") }}';
+            var html = '';
+            $.getJSON(url, {district:district}, function(json){
+                if(json && json.ret == 0){
+                    $.each(json.data,function(key,value){
+                        html += '<option value="'+ value +'">'+ value +'</option>';
+                    })
+                    $('#city').append(html);
+                }
+                else{
+                    alert('获取城市失败~')
+                }
+            })
+        })
+        $('#district,#city,#area').change(function(){
+            var district = $('#district').val();
+            var city = $('#city').val();
+            var area = $('#area').val();
+            if( district != '' && city != '' && area != ''){
+                $('.loftList').html('<div class="llName">加载中...</div>');
+                var url = '{{ url("_storage_list") }}';
+                $.getJSON(url, {district:district,city:city,area:area}, function(json){
+                    //$('#storage').html(data);
+                    var html = '';
+                    if(json && json.ret == 0){
+                        $.each(json.data,function(i){
+                            html += '<div class="loftLine"><img src="'+'{{ asset("uploads/") }}'+json.data[i].imgUrl+'" class="loftLineImg"><div class="llRightInfo"><div class="llName">'+json.data[i].title+'</div><div class="llBtns"><a href="'+json.data[i].detailUrl+'"><img src="'+'{{ asset("bundles/app/default/") }}'+'images/btn2.png"></a><a href="'+json.data[i].visitUrl+'"><img src="'+'{{ asset("bundles/app/default/") }}'+'images/btn3.png"></a></div></div><div class="clear"></div></div>';
+                        })
+                    }
+                    else{
+                        html = '<div class="llName">没有您需要的结果</div>';
+                    }
+                    $('.loftList').html(html);
+                })
+            }
+        })
+    })
+    </script>
+{% endblock %}

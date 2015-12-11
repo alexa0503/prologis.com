@@ -1,0 +1,13 @@
+{% extends 'AppBundle:default:layout.html.twig' %}
+{% block content %}
+    <img src="{{ asset('bundles/app/default/') }}images/topBar.jpg" class="dsb">
+    
+    <div class="eventDetail">
+        <h1>{{ event.title }}</h1>
+        
+        <div class="edTxt">
+            <p><img src="{{ asset('uploads/') }}{{ event.imgUrl }}"></p>
+            {{ event.info }}
+        </div>
+    </div>
+{% endblock %}
