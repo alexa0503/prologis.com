@@ -7,7 +7,7 @@
         
         <div class="edTxt">
             <p><img src="{{ asset('uploads/') }}{{ event.imgUrl }}"></p>
-            {{ event.info }}
+            {{ event.info | raw }}
         </div>
     </div>
 {% endblock %}
