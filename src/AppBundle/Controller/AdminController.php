@@ -35,6 +35,24 @@ class AdminController extends Controller
 		
 	}
 	/**
+	 * @Route("/admin/visit", name="admin_visit")
+	 */
+	public function visitAction(Request $request)
+	{
+		$repository = $this->getDoctrine()->getRepository('AppBundle:Visit');
+		$queryBuilder = $repository->createQueryBuilder('a');
+		
+		$query = $queryBuilder->getQuery();
+		$paginator  = $this->get('knp_paginator');
+
+		$pagination = $paginator->paginate(
+			$query,
+			$request->query->get('page', 1),/*page number*/
+			$this->pageSize
+			);
+		return $this->render('AppBundle:admin:visit.html.twig', array('pagination'=>$pagination));
+	}
+	/**
 	 * @Route("/admin/storage", name="admin_storage")
 	 */
 	public function storageAction(Request $request)
