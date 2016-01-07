@@ -14,7 +14,7 @@ class EventType extends AbstractType
 			))
 			->add('info', 'textarea', array(
 				'label' => '内容',
-				'attr' => array('class' => 'tinymce'),
+				'attr' => array('class' => 'tinymce','data-theme' => 'advanced','style'=>'min-height:400px;'),
 			))
 			->add('imgUrl', 'file', array(
 				'label' => '图片',

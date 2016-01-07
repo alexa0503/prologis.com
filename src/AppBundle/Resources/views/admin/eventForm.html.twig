@@ -19,11 +19,6 @@
 {% endblock %}
 {% block title %}事件管理{% endblock %}
 {% block javascripts %}
+{{ tinymce_init() }}
 {{ parent() }}
-<script src="{{ asset('bundles/app/admin/js/datetimepicker.min.js') }}"></script>
-<script>
-	jQuery(document).ready(function(){
-		$('.datepicker').datepicker({dateFormat:'yy-mm-dd'});
-	})
-</script>
 {% endblock %}
