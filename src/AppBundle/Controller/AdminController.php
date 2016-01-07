@@ -218,14 +218,14 @@ class AdminController extends Controller
 	{
 		$em = $this->getDoctrine()->getEntityManager();
 		$event = $em->getRepository('AppBundle:Event')->find($id);
+		$imgUrl = $event->getImgUrl();
 		$form = $this->createForm(new EventType(), $event);
 		$form->handleRequest($request);
-		$imgUrl = $event->getImgUrl();
 		if ($form->isValid()) {
 			$data = $form->getData();
 			$fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads';
 			
-			$file = $data->getMapUrl();
+			$file = $data->getImgUrl();
 			if( null != $file ){
 				$imgUrl = md5(uniqid()).'.'.$file->guessExtension();
 				$file->move($fileDir, $imgUrl);
