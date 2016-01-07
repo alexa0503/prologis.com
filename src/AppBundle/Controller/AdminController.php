@@ -117,10 +117,10 @@ class AdminController extends Controller
 	{
 		$em = $this->getDoctrine()->getEntityManager();
 		$storage = $em->getRepository('AppBundle:Storage')->find($id);
-		$form = $this->createForm(new StorageType(), $storage);
-		$form->handleRequest($request);
 		$mapUrl = $storage->getMapUrl();
 		$imgUrl = $storage->getImgUrl();
+		$form = $this->createForm(new StorageType(), $storage);
+		$form->handleRequest($request);
 		if ($form->isValid()) {
 			$data = $form->getData();
 			$fileDir = $this->container->getParameter('kernel.root_dir').'/../web/uploads';
@@ -134,6 +134,7 @@ class AdminController extends Controller
 
 
 			$file = $data->getImgUrl();
+
 			if( null != $file ){
 				$imgUrl = md5(uniqid()).'.'.$file->guessExtension();
 				$file->move($fileDir, $imgUrl);
