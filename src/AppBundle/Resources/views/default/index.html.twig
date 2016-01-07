@@ -27,18 +27,19 @@
         </select>
     </div>
     <div class="loftList">
-        <!--<div class="loftLine">
-            <img src="{{ asset('bundles/app/default/') }}images/cangkuImg.jpg" class="loftLineImg">
+    {% for storage in storages%}
+        <div class="loftLine">
+            <img src="{{ asset("uploads/") }}{{ storage.imgUrl }}" class="loftLineImg">
             <div class="llRightInfo">
-                <div class="llName">安博上海九亭物流中心</div>
+                <div class="llName">{{ storage.title }}</div>
                 <div class="llBtns">
-                    <a href="loftDetail.html"><img src="{{ asset('bundles/app/default/') }}images/btn2.png"></a>
-                    <a href="visit.html"><img src="{{ asset('bundles/app/default/') }}images/btn3.png"></a>
+                    <a href="{{ url('_visit',{id:storage.id}) }}"><img src="{{ asset('bundles/app/default/') }}images/btn2.png"></a>
+                    <a href="{{ url('_storage',{id:storage.id}) }}"><img src="{{ asset('bundles/app/default/') }}images/btn3.png"></a>
                 </div>
             </div>
             <div class="clear"></div>
         </div>
-        -->
+    {% endfor %}
     </div>
 {% endblock %}
 {% block javascripts %}
