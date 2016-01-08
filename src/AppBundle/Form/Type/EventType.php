@@ -12,6 +12,9 @@ class EventType extends AbstractType
 			->add('title', 'text', array(
 				'label' => '标题',
 			))
+			->add('subTitle', 'text', array(
+				'label' => '副标题',
+			))
 			->add('info', 'textarea', array(
 				'label' => '内容',
 				'attr' => array('class' => 'tinymce','data-theme' => 'advanced','style'=>'min-height:400px;'),
