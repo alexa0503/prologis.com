@@ -100,6 +100,21 @@ bushidoio_qrcode:
     absolute_url: true
     http_max_age: 600
     https_max_age: 600
+#缩略图配置
+liip_imagine:
+    resolvers:
+       default:
+          web_path: ~
+    filter_sets:
+        cache: ~
+        thumb1:
+            quality: 100
+            filters:
+                thumbnail: { size: [640, 268], mode: outbound }
+        thumb2:
+            quality: 100
+            filters:
+                thumbnail: { size: [135, 180], mode: outbound }
 stfalcon_tinymce:
     include_jquery: true
     tinymce_jquery: true

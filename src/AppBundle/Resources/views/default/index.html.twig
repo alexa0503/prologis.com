@@ -29,7 +29,7 @@
     <div class="loftList">
     {% for storage in storages%}
         <div class="loftLine" data-district="{{ storage.district }}" data-city="{{ storage.city }}" data-area="{{ storage.area }}">
-            <img src="{{ asset("uploads/") }}{{ storage.imgUrl }}" class="loftLineImg">
+            <img src="{{ (asset('/uploads/')~storage.imgUrl) | imagine_filter('thumb2') }}" class="loftLineImg">
             <div class="llRightInfo">
                 <div class="llName">{{ storage.title }}</div>
                 <div class="llBtns">

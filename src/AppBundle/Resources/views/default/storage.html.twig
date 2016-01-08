@@ -8,9 +8,7 @@
             <a href="javascript:void(0);" class="titleBack" onClick="history.go(-1);"><img src="{{ asset('bundles/app/default/') }}images/backImg.png"></a>
         </div>
     </div>
-    
-    <img src="{{ asset('uploads/') }}{{ storage.imgUrl }}" class="dsb" style="max-width:640px;">
-    
+        <img src="{{ (asset('/uploads/')~storage.imgUrl) | imagine_filter('thumb1') }}" class="dsb" style="max-width:640px;">
     <div class="loftIntro">
         <div class="liLine">
             <div class="liTitle">物业类型</div>
