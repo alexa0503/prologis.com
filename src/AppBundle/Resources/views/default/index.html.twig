@@ -6,10 +6,10 @@
     <div class="selectLine">
         <select name="district" id="district">
             <option value="">选择地区</option>
-            <option>华东</option>
-            <option>华北</option>
-            <option>华南</option>
-            <option>华西</option>
+            <option value="华东">华东</option>
+            <option value="华北">华北</option>
+            <option value="华南">华南</option>
+            <option value="华西">华西</option>
         </select>
     </div>
     <div class="selectLine">
@@ -20,15 +20,15 @@
     <div class="selectLine">
         <select name="area" id="area">
             <option value="">仓库面积</option>
-            <option value="1">0~10000</option>
-            <option value="2">10000~20000</option>
-            <option value="3">20000~30000</option>
-            <option value="4">30000以上</option>
+            <option value="0~10000">0~10000</option>
+            <option value="10000~20000">10000~20000</option>
+            <option value="20000~30000">20000~30000</option>
+            <option value="30000~9999999">30000以上</option>
         </select>
     </div>
     <div class="loftList">
     {% for storage in storages%}
-        <div class="loftLine">
+        <div class="loftLine" data-district="{{ storage.district }}" data-city="{{ storage.city }}" data-area="{{ storage.area }}">
             <img src="{{ asset("uploads/") }}{{ storage.imgUrl }}" class="loftLineImg">
             <div class="llRightInfo">
                 <div class="llName">{{ storage.title }}</div>
@@ -48,22 +48,55 @@
         $('#district').val('');
         $('#city').val('');
         $('#district').change(function(){
-            var district = $('#district').val();
-            $('#city').empty().html('<option value="">选择城市</option>');
-            var url = '{{ url("_city") }}';
-            var html = '';
-            $.getJSON(url, {district:district}, function(json){
-                if(json && json.ret == 0){
-                    $.each(json.data,function(key,value){
-                        html += '<option value="'+ value +'">'+ value +'</option>';
-                    })
-                    $('#city').append(html);
-                }
-                else{
-                    alert('获取城市失败~')
-                }
-            })
+        var district = $('#district').val();
+        $('#city').empty().html('<option value="">选择城市</option>');
+        var url = '{{ url("_city") }}';
+        var html = '';
+        $.getJSON(url, {district:district}, function(json){
+            if(json && json.ret == 0){
+                $.each(json.data,function(key,value){
+                    html += '<option value="'+ value +'">'+ value +'</option>';
+                })
+                $('#city').append(html);
+            }
+            else{
+                alert('获取城市失败~')
+            }
         })
+    })
+    $('#district,#city,#area').change(function(){
+        var district = $('#district').val();
+        var city = $('#city').val();
+        var area = $('#area').val();
+        $('.loftLine').each(function(i){
+            var s = false;//默认显示
+            var dataDistrict = $(this).attr('data-district');
+            var dataCity = $(this).attr('data-city');
+            var dataArea = $(this).attr('data-area');
+            if( district != '' && district != dataDistrict){
+                s = true;
+            }
+
+            if( city != '' && city != dataCity){
+                s = true;
+            }
+
+            if( area != '' ){
+                var a = area.split('~');
+                if(dataArea < a[0] || dataArea > a[1]){
+                    s = true;
+                }
+            }
+
+            if(s == true){
+                $(this).hide();
+            }
+            else{
+                $(this).show();
+            }
+        });
+    });
+        /*
         $('#district,#city,#area').change(function(){
             var district = $('#district').val();
             var city = $('#city').val();
@@ -86,6 +119,7 @@
                 })
             }
         })
+        */
     })
     </script>
 {% endblock %}
