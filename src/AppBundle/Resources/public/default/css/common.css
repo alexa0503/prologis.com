@@ -56,6 +56,7 @@ select,input,textarea{font-family:inherit; outline:none;}
 .eventDetail h1{ padding:30px 0 24px 35px; font-size:28px; color:#04564a; line-height:100%;}
 .edTxt{ padding:0 30px 30px 35px; width:575px; color:#666666; font-size:24px; line-height:36px; word-break:break-all;}
 .edTxt p{ padding-bottom:38px;}
+.edTxt img{ max-width: 620px;}
 
 
 /*参观预约*/
