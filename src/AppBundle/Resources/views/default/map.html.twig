@@ -9,8 +9,8 @@
         </div>
     </div>
     
-    <div class="mapBlock" id="mapBlock">
-        <img src="{{ asset('uploads/') }}{{ storage.mapUrl }}" class="mapImg" id="mapImg">
+    <div class="mapBlock" id="mapBlock" style="position:relative;">
+        <img src="{{ asset('uploads/') }}{{ storage.mapUrl }}" class="mapImg" id="mapImg" style="left:{{ -1*storage.posX }}px; top:{{ -1*storage.posY }}px; position:absolute;">
     </div>
 </div>
 

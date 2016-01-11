@@ -67,6 +67,14 @@ class Storage
      * @ORM\OneToMany(targetEntity="Visit", mappedBy="storage")
      */
     protected $visits;
+   /**
+     * @ORM\Column(name="pos_x",type="integer")
+     */
+    protected $posX = 0;
+   /**
+     * @ORM\Column(name="pos_y",type="integer")
+     */
+    protected $posY = 0;
     /**
      * @ORM\Column(name="create_time",  type="datetime")
      */

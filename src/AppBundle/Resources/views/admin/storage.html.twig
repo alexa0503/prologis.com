@@ -19,6 +19,8 @@
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">描述</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">缩略图</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">地图</th>
+				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">地图X轴</th>
+				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">地图Y轴</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">创建时间</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">创建IP</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1" width="60">操作</th>
@@ -37,6 +39,8 @@
 				<td>{{ p.storageDesc }}</td>
 				<td><a href="/uploads/{{ p.imgUrl }}"><img src="/uploads/{{ p.imgUrl }}" style="max-width:100px;max-height:100px;" /></a></td>
 				<td><a href="/uploads/{{ p.mapUrl }}"><img src="/uploads/{{ p.mapUrl }}" style="max-width:100px;max-height:100px;" /></a></td>
+				<td>{{ p.posX }}</td>
+				<td>{{ p.posY }}</td>
 				<td>{{ p.createTime | date("Y-m-d H:i:s") }}</td>
 				<td>{{ p.createIp }}</td>
 				<td><a href="{{ url('admin_storage_edit',{id:p.id}) }}">编辑</a> <a href="{{ url('admin_storage_delete',{id:p.id}) }}" class="delete">删除</a></td>

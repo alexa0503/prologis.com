@@ -67,6 +67,14 @@ class Storage
      * @ORM\OneToMany(targetEntity="Visit", mappedBy="storage")
      */
     protected $visits;
+   /**
+     * @ORM\Column(name="pos_x",type="integer")
+     */
+    protected $posX = 0;
+   /**
+     * @ORM\Column(name="pos_y",type="integer")
+     */
+    protected $posY = 0;
     /**
      * @ORM\Column(name="create_time",  type="datetime")
      */
@@ -379,5 +387,51 @@ class Storage
     public function getVisits()
     {
         return $this->visits;
+    }
+
+    /**
+     * Set posX
+     *
+     * @param integer $posX
+     * @return Storage
+     */
+    public function setPosX($posX)
+    {
+        $this->posX = $posX;
+
+        return $this;
+    }
+
+    /**
+     * Get posX
+     *
+     * @return integer 
+     */
+    public function getPosX()
+    {
+        return $this->posX;
+    }
+
+    /**
+     * Set posY
+     *
+     * @param integer $posY
+     * @return Storage
+     */
+    public function setPosY($posY)
+    {
+        $this->posY = $posY;
+
+        return $this;
+    }
+
+    /**
+     * Get posY
+     *
+     * @return integer 
+     */
+    public function getPosY()
+    {
+        return $this->posY;
     }
 }

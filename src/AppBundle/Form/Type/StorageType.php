@@ -40,6 +40,12 @@ class StorageType extends AbstractType
 				'data_class' => null,
 				'required' => false,
 			))
+			->add('posX', 'text', array(
+				'label' => '地图X轴(整数)',
+			))
+			->add('posY', 'text', array(
+				'label' => '地图Y轴(整数)',
+			))
 			->add('save', 'submit', array('label' => '保存'))
 		;
 	}
