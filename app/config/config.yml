@@ -115,6 +115,14 @@ liip_imagine:
             quality: 100
             filters:
                 thumbnail: { size: [135, 180], mode: outbound }
+        thumb3:
+            quality: 100
+            filters:
+                thumbnail: { size: [190, 135], mode: outbound }
+        thumb4:
+            quality: 100
+            filters:
+                thumbnail: { size: [640, 426], mode: outbound }
 stfalcon_tinymce:
     include_jquery: true
     tinymce_jquery: true

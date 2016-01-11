@@ -6,7 +6,7 @@
         <h1>{{ event.title }}</h1>
         
         <div class="edTxt">
-            <p><img src="{{ asset('uploads/') }}{{ event.imgUrl }}"></p>
+            <p><img src="{{ (asset('/uploads/')~storage.imgUrl) | imagine_filter('thumb4') }}"></p>
             {{ event.info | raw }}
         </div>
     </div>

@@ -8,7 +8,7 @@
         {% for event in events %}
         <div class="elLine">
             <a href="{{ url('_event',{id:event.id }) }}">
-                <img src="{{ asset('uploads/') }}{{ event.imgUrl }}" class="elImg">
+                <img src="{{ (asset('/uploads/')~storage.imgUrl) | imagine_filter('thumb3') }}" class="elImg">
                 <div class="elRightTxt">
                     <table>
                         <tr>
