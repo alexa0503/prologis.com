@@ -10,7 +10,7 @@
     </div>
     
     <div class="mapBlock" id="mapBlock" style="position:relative;">
-        <img src="{{ asset('uploads/') }}{{ storage.mapUrl }}" class="mapImg" id="mapImg" style="left:{{ -1*(storage.posX - 320) }}px; top:{{ -1*(storage.posY - 473) }}px; position:absolute;">
+        <img src="{{ asset('uploads/') }}{{ storage.mapUrl }}" class="mapImg" id="mapImg" style="left:{{ -1*(storage.posX) }}px; top:{{ -1*(storage.posY) }}px; position:absolute;">
     </div>
 </div>
 
@@ -80,6 +80,10 @@ function move_picture() {
 $(document).ready(function(){
     move_picture();
     });
+
+$('.mapNote').click(function(){
+    alert(posX+','+posY);
+})
 </script>
 {% endblock %}
 {% block title %} - 地图查看{% endblock %}
