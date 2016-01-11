@@ -14,7 +14,7 @@
     </div>
 </div>
 
-<div class="mapNote">左右移动图片 查看附近交通</div>
+<div class="mapNote">左右移动图片 查看附近交通{% if app.request.get('admin') == 'y' %}<a href="#" id="viewPos">点击查看坐标</a>{% endif %}</div>
 
 <div class="bottomTool">
     <div class="innerDiv">
@@ -80,10 +80,12 @@ function move_picture() {
 $(document).ready(function(){
     move_picture();
     });
-
-$('.mapNote').click(function(){
+{% if app.request.get('admin') == 'y' %}
+$('#viewPos').click(function(){
     alert((-1)*(posX-parseInt('{{ storage.posX }}'))+','+(-1)*(posY-parseInt('{{ storage.posY }}')));
+    return false;
 })
+{% endif %}
 </script>
 {% endblock %}
 {% block title %} - 地图查看{% endblock %}

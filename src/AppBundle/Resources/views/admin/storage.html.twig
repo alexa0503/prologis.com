@@ -43,7 +43,7 @@
 				<td>{{ p.posY }}</td>
 				<td>{{ p.createTime | date("Y-m-d H:i:s") }}</td>
 				<td>{{ p.createIp }}</td>
-				<td><a href="{{ url('admin_storage_edit',{id:p.id}) }}">编辑</a> <a href="{{ url('admin_storage_delete',{id:p.id}) }}" class="delete">删除</a></td>
+				<td><a href="{{ url('admin_storage_edit',{id:p.id}) }}">编辑</a> <a href="{{ url('admin_storage_delete',{id:p.id}) }}" class="delete">删除</a> <a href="{{ url('_map',{id:p.id,admin:'y'}) }}" target="_blank">坐标获取</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>
