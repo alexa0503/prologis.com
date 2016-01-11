@@ -82,7 +82,7 @@ $(document).ready(function(){
     });
 
 $('.mapNote').click(function(){
-    alert(posX+','+posY);
+    alert((-1)*(posX-parseInt('{{ storage.posX }}'))+','+(-1)*(posY-parseInt('{{ storage.posY }}')));
 })
 </script>
 {% endblock %}
