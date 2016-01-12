@@ -14,6 +14,7 @@ class EventType extends AbstractType
 			))
 			->add('subTitle', 'text', array(
 				'label' => '副标题',
+				'required' => false,
 			))
 			->add('info', 'textarea', array(
 				'label' => '内容',
