@@ -25,6 +25,7 @@ class AdminController extends Controller
 	 */
 	public function indexAction()
 	{
+		var_dump($_SESSION['_sf2_attributes']['_security_secured_area']);
 		return $this->render('AppBundle:admin:index.html.twig');
 	}
 	/**
@@ -252,6 +253,13 @@ class AdminController extends Controller
 		$event = $em->getRepository('AppBundle:Event')->find($id);
 		$em->remove($event);
 		$em->flush();
+		return new Response(json_encode(array('ret'=>0, 'msg'=>'')));
+	}
+	/**
+	 * @Route("/admin/upload", name="admin_upload")
+	 */
+	public function upload(Request $request, $id)
+	{
 		return new Response(json_encode(array('ret'=>0, 'msg'=>'')));
 	}
 	/**

@@ -23,8 +23,8 @@
 		 {% for p in pagination %}
 			<tr class="gradeA {% if loop.index is odd %} odd{% else %} even{% endif %}" role="row">
 				<td>{{ p.id }}</td>
-				<td>{{ p.subTitle }}</td>
 				<td>{{ p.title }}</td>
+				<td>{{ p.subTitle }}</td>
 				<td>{{ p.info|slice(0, 50) ~ '...' }}</td>
 				<td><img src="/uploads/{{ p.imgUrl }}" style="max-width:100px;max-height:100px;" /></td>
 				<td>{{ p.createTime | date("Y-m-d H:i:s") }}</td>

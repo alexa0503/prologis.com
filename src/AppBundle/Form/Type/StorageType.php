@@ -15,8 +15,9 @@ class StorageType extends AbstractType
 			->add('type', 'text', array(
 				'label' => '物业类型',
 			))
-			->add('district', 'text', array(
+			->add('district', 'choice', array(
 				'label' => '地区',
+				'choices'=>array('华东'=>'华东','华南'=>'华南','华西'=>'华西','华北'=>'华北'),
 			))
 			->add('city', 'text', array(
 				'label' => '城市',

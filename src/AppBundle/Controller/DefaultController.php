@@ -26,7 +26,9 @@ class DefaultController extends Controller
 	 */
 	public function indexAction(Request $request)
 	{
-		$storages = $this->getDoctrine()->getRepository('AppBundle:Storage')->findAll();
+		$repository = $this->getDoctrine()->getRepository('AppBundle:Storage');
+		$query = $repository->createQueryBuilder('p')->orderBy('p.district', 'ASC')->getQuery();
+		$storages = $query->getResult();
 		return $this->render('AppBundle:default:index.html.twig',array('storages'=>$storages));
 	}
 
