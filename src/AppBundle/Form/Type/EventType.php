@@ -12,6 +12,9 @@ class EventType extends AbstractType
 			->add('title', 'text', array(
 				'label' => '标题',
 			))
+			->add('orderId', 'text', array(
+				'label' => '排序(从小到大)',
+			))
 			->add('subTitle', 'text', array(
 				'label' => '副标题',
 				'required' => false,
@@ -24,6 +27,7 @@ class EventType extends AbstractType
 				'label' => '图片',
 				'data_class' => null,
 				'required' => false,
+				'attr' => array('value' => $builder->getData()->getImgUrl(),'class'=>'preview')
 			))
 			->add('save', 'submit', array('label' => '保存'))
 		;

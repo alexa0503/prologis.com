@@ -83,6 +83,10 @@ class Storage
      * @ORM\Column(name="create_ip", type="string", length=60)
      */
     private $createIp;
+   /**
+     * @ORM\Column(name="order_id",type="integer")
+     */
+    protected $orderId;
 
 
 
@@ -387,5 +391,51 @@ class Storage
     public function getVisits()
     {
         return $this->visits;
+    }
+
+    /**
+     * Set posX
+     *
+     * @param integer $posX
+     * @return Storage
+     */
+    public function setPosX($posX)
+    {
+        $this->posX = $posX;
+
+        return $this;
+    }
+
+    /**
+     * Get posX
+     *
+     * @return integer 
+     */
+    public function getPosX()
+    {
+        return $this->posX;
+    }
+
+    /**
+     * Set posY
+     *
+     * @param integer $posY
+     * @return Storage
+     */
+    public function setPosY($posY)
+    {
+        $this->posY = $posY;
+
+        return $this;
+    }
+
+    /**
+     * Get posY
+     *
+     * @return integer 
+     */
+    public function getPosY()
+    {
+        return $this->posY;
     }
 }

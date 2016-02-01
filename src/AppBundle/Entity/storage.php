@@ -83,6 +83,10 @@ class Storage
      * @ORM\Column(name="create_ip", type="string", length=60)
      */
     private $createIp;
+   /**
+     * @ORM\Column(name="order_id",type="integer")
+     */
+    protected $orderId;
 
 
 
@@ -433,5 +437,28 @@ class Storage
     public function getPosY()
     {
         return $this->posY;
+    }
+
+    /**
+     * Set orderId
+     *
+     * @param integer $orderId
+     * @return Storage
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    /**
+     * Get orderId
+     *
+     * @return integer 
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 }

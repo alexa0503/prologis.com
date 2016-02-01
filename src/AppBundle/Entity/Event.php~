@@ -24,7 +24,7 @@ class Event
      */
     protected $subTitle;
    /**
-     * @ORM\Column(name="info",type="text")
+     * @ORM\Column(name="info",type="text", nullable=true)
      */
     protected $info;
     /**
@@ -45,6 +45,10 @@ class Event
      * @ORM\Column(name="create_ip", type="string", length=60)
      */
     private $createIp;
+   /**
+     * @ORM\Column(name="order_id",type="integer")
+     */
+    private $orderId;
 
 
 
@@ -171,5 +175,51 @@ class Event
     public function getCreateIp()
     {
         return $this->createIp;
+    }
+
+    /**
+     * Set subTitle
+     *
+     * @param string $subTitle
+     * @return Event
+     */
+    public function setSubTitle($subTitle)
+    {
+        $this->subTitle = $subTitle;
+
+        return $this;
+    }
+
+    /**
+     * Get subTitle
+     *
+     * @return string 
+     */
+    public function getSubTitle()
+    {
+        return $this->subTitle;
+    }
+
+    /**
+     * Set orderId
+     *
+     * @param integer $orderId
+     * @return Event
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    /**
+     * Get orderId
+     *
+     * @return integer 
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 }

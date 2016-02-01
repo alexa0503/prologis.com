@@ -27,7 +27,7 @@ class DefaultController extends Controller
 	public function indexAction(Request $request)
 	{
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Storage');
-		$query = $repository->createQueryBuilder('p')->orderBy('p.district', 'ASC')->getQuery();
+		$query = $repository->createQueryBuilder('p')->orderBy('p.orderId', 'ASC')->addOrderBy('p.district', 'ASC')->getQuery();
 		$storages = $query->getResult();
 		return $this->render('AppBundle:default:index.html.twig',array('storages'=>$storages));
 	}
@@ -43,7 +43,8 @@ class DefaultController extends Controller
 		$events = $queryBuilder
 		->setFirstResult(0)
 		->setMaxResults(10)
-		->orderBy('a.createTime','DESC')
+		->orderBy('a.orderId','DESC')
+		->addOrderBy('a.createTime','DESC')
 		->getQuery()
 		->getResult();
 		return $this->render('AppBundle:default:eventList.html.twig',array(

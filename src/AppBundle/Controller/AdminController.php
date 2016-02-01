@@ -12,6 +12,7 @@ use AppBundle\Entity;
 use Symfony\Component\Validator\Constraints\Time;
 use AppBundle\Form\Type\StorageType;
 use AppBundle\Form\Type\EventType;
+use AppBundle\Form\Type\UserType;
 
 //use Liuggio\ExcelBundle;
 
@@ -25,15 +26,49 @@ class AdminController extends Controller
 	 */
 	public function indexAction()
 	{
-		var_dump($_SESSION['_sf2_attributes']['_security_secured_area']);
 		return $this->render('AppBundle:admin:index.html.twig');
 	}
 	/**
 	 * @Route("/admin/account/", name="admin_account")
 	 */
-	public function accountAction()
+	public function accountAction(Request $request)
 	{
-		
+		$em = $this->getDoctrine()->getEntityManager();
+		$user = $em->getRepository('AppBundle:User')->find(1);
+		$old_password = $user->getPassword();
+		$form = $this->createForm(new UserType(), $user);
+		$form->handleRequest($request);
+		if ($form->isValid()) {
+			$data = $form->getData();
+			$factory = $this->get('security.encoder_factory');
+			   
+			$encoder = $factory->getEncoder($user);
+			$password = $encoder->encodePassword($data->getPassword(), $user->getSalt());
+			if( '' == $data->getPassword()){
+				$this->get('session')->getFlashBag()->add(
+	          'notice',
+	          '密码不能为空~'
+	      );
+			}
+			elseif($password == $old_password){
+				$this->get('session')->getFlashBag()->add(
+	          'notice',
+	          '新密码与旧密码一样,请重新输入~'
+	      );
+			}
+			else{
+				$user->setPassword($password);
+				$em->persist($user);
+				$this->get('session')->getFlashBag()->add(
+	          'notice',
+	          '修改密码成功，请重新登录~'
+	      );
+				$em->flush();
+			}
+		}
+		return $this->render('AppBundle:admin:userForm.html.twig', array(
+			'form' => $form->createView(),
+			));
 	}
 	/**
 	 * @Route("/admin/visit", name="admin_visit")
@@ -54,12 +89,23 @@ class AdminController extends Controller
 		return $this->render('AppBundle:admin:visit.html.twig', array('pagination'=>$pagination));
 	}
 	/**
+	 * @Route("/admin/visit/delete/{id}", name="admin_visit_delete")
+	 */
+	public function visitDeleteAction(Request $request, $id)
+	{
+		$em = $this->getDoctrine()->getManager();
+		$storage = $em->getRepository('AppBundle:Visit')->find($id);
+		$em->remove($storage);
+		$em->flush();
+		return new Response(json_encode(array('ret'=>0, 'msg'=>'')));
+	}
+	/**
 	 * @Route("/admin/storage", name="admin_storage")
 	 */
 	public function storageAction(Request $request)
 	{
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Storage');
-		$queryBuilder = $repository->createQueryBuilder('a');
+		$queryBuilder = $repository->createQueryBuilder('a')->orderBy('a.orderId','ASC');
 		
 		$query = $queryBuilder->getQuery();
 		$paginator  = $this->get('knp_paginator');
@@ -169,7 +215,7 @@ class AdminController extends Controller
 	public function eventAction(Request $request)
 	{
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Event');
-		$queryBuilder = $repository->createQueryBuilder('a');
+		$queryBuilder = $repository->createQueryBuilder('a')->orderBy('a.orderId','ASC');
 		
 		$query = $queryBuilder->getQuery();
 		$paginator  = $this->get('knp_paginator');
@@ -267,6 +313,7 @@ class AdminController extends Controller
 	 */
 	public function exportAction(Request $request)
 	{
+		/*
 		$em = $this->getDoctrine()->getManager();
 		$repository = $em->getRepository('AppBundle:LotteryLog');
 		$queryBuilder = $repository->createQueryBuilder('a')
@@ -290,22 +337,39 @@ class AdminController extends Controller
 			$arr[] = $_string;
 		}
 		$output = implode("\n", $arr);
-
-		//$phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
-		/*
-		$phpExcelObject = new \PHPExcel();
+		*/
+		$em = $this->getDoctrine()->getManager();
+		$repository = $em->getRepository('AppBundle:Visit');
+		$queryBuilder = $repository->createQueryBuilder('a');
+		$rows = $queryBuilder->getQuery()->getResult();
+		$phpExcelObject = $this->get('phpexcel')->createPHPExcelObject();
+		//$phpExcelObject = new \PHPExcel();
 		$phpExcelObject->getProperties()->setCreator("liuggio")
 			->setLastModifiedBy("Giulio De Donato")
 			->setTitle("Office 2005 XLSX Test Document")
 			->setSubject("Office 2005 XLSX Test Document")
 			->setDescription("Test document for Office 2005 XLSX, generated using PHP classes.")
 			->setKeywords("office 2005 openxml php")
-			->setCategory("Test result file");
-		$phpExcelObject->setActiveSheetIndex(0);
-		foreach($logs as $v){
-			$phpExcelObject->setCellValue('A1', $v->getId());
+			->setCategory("预约信息");
+		$phpExcelObject->setActiveSheetIndex(0)
+			->setCellValue('A1','ID')
+			->setCellValue('B1', '姓名')
+			->setCellValue('C1', '手机')
+			->setCellValue('D1', '公司')
+			->setCellValue('E1', '预约仓库')
+			->setCellValue('F1', '预约时间')
+			->setCellValue('G1', '预约IP');
+		foreach($rows as $k=>$v){
+			$phpExcelObject->setActiveSheetIndex(0)
+				->setCellValue('A'.($k+2), $v->getId())
+				->setCellValue('B'.($k+2), $v->getUsername())
+				->setCellValue('C'.($k+2), $v->getMobile())
+				->setCellValue('D'.($k+2), $v->getCompany())
+				->setCellValue('E'.($k+2), $v->getStorage()->getTitle())
+				->setCellValue('F'.($k+2), $v->getCreateTime()->format('Y-m-d H:i:s'))
+				->setCellValue('G'.($k+2), $v->getCreateIp());
 		}
-		$phpExcelObject->getActiveSheet()->setTitle('Simple');
+		$phpExcelObject->getActiveSheet()->setTitle('预约信息');
 		// Set active sheet index to the first sheet, so Excel opens this as the first sheet
 		$phpExcelObject->setActiveSheetIndex(0);
 
@@ -322,13 +386,14 @@ class AdminController extends Controller
 		$response->headers->set('Pragma', 'public');
 		$response->headers->set('Cache-Control', 'maxage=1');
 		$response->headers->set('Content-Disposition', $dispositionHeader);
-		*/
 
+		/*
 		$response = new Response($output);
 		$response->headers->set('Content-Disposition', ':attachment; filename=data.csv');
 		$response->headers->set('Content-Type', 'text/csv; charset=utf-8');
 		$response->headers->set('Pragma', 'public');
 		$response->headers->set('Cache-Control', 'maxage=1');
+		*/
 		return $response;
 	}
 

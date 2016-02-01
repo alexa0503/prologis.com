@@ -9,6 +9,9 @@ class StorageType extends AbstractType
 	public function buildForm(FormBuilderInterface $builder, array $options)
 	{
 		$builder
+			->add('orderId', 'text', array(
+				'label' => '排序(从小到大)',
+			))
 			->add('title', 'text', array(
 				'label' => '仓库名称',
 			))
@@ -30,16 +33,19 @@ class StorageType extends AbstractType
 			))
 			->add('storageDesc', 'textarea', array(
 				'label' => '仓库描述',
+				'attr' => array('class' => 'tinymce','data-theme' => 'advanced','style'=>'min-height:200px;'),
 			))
 			->add('imgUrl', 'file', array(
 				'label' => '缩略图',
 				'data_class' => null,
 				'required' => false,
+				'attr' => array('value' => $builder->getData()->getImgUrl(),'class'=>'preview')
 			))
 			->add('mapUrl', 'file', array(
 				'label' => '地图',
 				'data_class' => null,
 				'required' => false,
+				'attr' => array('value' => $builder->getData()->getMapUrl(),'class'=>'preview')
 			))
 			->add('posX', 'text', array(
 				'label' => '地图X轴(整数)',

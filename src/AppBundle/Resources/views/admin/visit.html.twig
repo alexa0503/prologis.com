@@ -16,6 +16,7 @@
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">公司</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">创建时间</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">创建IP</th>
+				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1" width="60">操作</th>
 			</tr>
 		 </thead>
 		 <tbody>
@@ -28,6 +29,7 @@
 				<td>{{ p.company }}</td>
 				<td>{{ p.createTime | date("Y-m-d H:i:s") }}</td>
 				<td>{{ p.createIp }}</td>
+				<td><a href="{{ url('admin_visit_delete',{id:p.id}) }}" class="delete">删除</a></td>
 			</tr>
 			{% endfor %}
 			</tbody>

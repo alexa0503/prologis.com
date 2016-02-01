@@ -5,7 +5,7 @@
     <img src="{{ asset('bundles/app/default/') }}images/loftImg1.jpg" class="dsb">
     <div class="selectLine">
         <select name="district" id="district">
-            <option value="">选择地区</option>
+            <option value="">选择区域</option>
             <option value="华东">华东</option>
             <option value="华北">华北</option>
             <option value="华南">华南</option>
@@ -14,16 +14,16 @@
     </div>
     <div class="selectLine">
         <select name="city" id="city">
-            <option value="">请先选择地区</option>
+            <option value="">请先选择区域</option>
         </select>
     </div>
     <div class="selectLine">
         <select name="area" id="area">
             <option value="">仓库面积</option>
-            <option value="0~10000">0~10000</option>
-            <option value="10000~20000">10000~20000</option>
-            <option value="20000~30000">20000~30000</option>
-            <option value="30000~9999999">30000以上</option>
+            <option value="0~30000">3万平米以内</option>
+            <option value="30000~60000">3-6万平米</option>
+            <option value="60000~100000">6-10万平米</option>
+            <option value="100000~9999999">10万平米以上</option>
         </select>
     </div>
     <div class="loftList">
@@ -44,6 +44,45 @@
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript">
+    
+    function selectStorage()
+    {
+        var district = $('#district').val();
+        var city = $('#city').val();
+        var area = $('#area').val();
+        $('.loftLine').each(function(i){
+            var s = false;//默认显示
+            var dataDistrict = $(this).attr('data-district');
+            var dataCity = $(this).attr('data-city');
+            var dataArea = $(this).attr('data-area');
+
+            if( area != '' ){
+                var a = area.split('~');
+                if(dataArea >= parseInt(a[0]) && dataArea < parseInt(a[1])){
+                    s = false;
+                }
+                else{
+                    s = true;
+                }
+            }
+
+
+            if( district != '' && district != dataDistrict){
+                s = true;
+            }
+
+            if( city != '' && city != dataCity){
+                s = true;
+            }
+
+            if(s == true){
+                $(this).hide();
+            }
+            else{
+                $(this).show();
+            }
+        });
+    }
     $(document).ready(function(){
         $('#district').val('');
         $('#city').val('');
@@ -64,37 +103,9 @@
             }
         })
     })
+    selectStorage();
     $('#district,#city,#area').change(function(){
-        var district = $('#district').val();
-        var city = $('#city').val();
-        var area = $('#area').val();
-        $('.loftLine').each(function(i){
-            var s = false;//默认显示
-            var dataDistrict = $(this).attr('data-district');
-            var dataCity = $(this).attr('data-city');
-            var dataArea = $(this).attr('data-area');
-            if( district != '' && district != dataDistrict){
-                s = true;
-            }
-
-            if( city != '' && city != dataCity){
-                s = true;
-            }
-
-            if( area != '' ){
-                var a = area.split('~');
-                if(dataArea < a[0] || dataArea > a[1]){
-                    s = true;
-                }
-            }
-
-            if(s == true){
-                $(this).hide();
-            }
-            else{
-                $(this).show();
-            }
-        });
+        selectStorage();
     });
         /*
         $('#district,#city,#area').change(function(){

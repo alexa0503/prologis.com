@@ -19,7 +19,13 @@ class Builder extends ContainerAware
 		$menu->setChildrenAttribute('id', 'leftmenu');
 
 		$menu->addChild('Dashboard', array('route' => 'admin_index'));
-		$menu->addChild('预约信息', array('route' => 'admin_visit'));
+		$visit = $menu->addChild('预约信息', array('route' => 'admin_visit'));
+		$visit->setAttribute('class', 'nav-parent');
+		$visit->setChildrenAttribute('class', 'children');
+		$visit->addChild('查看', array('route' => 'admin_visit'));
+		$visit->addChild('导出', array('route' => 'admin_export'));
+
+
 		$storage = $menu->addChild('仓库管理', array('route' => 'admin_storage'));
 		$storage->setAttribute('class', 'nav-parent');
 		$storage->setChildrenAttribute('class', 'children');

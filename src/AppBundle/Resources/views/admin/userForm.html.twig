@@ -9,6 +9,15 @@
 				{% form_theme form 'AppBundle:Form:layout.html.twig' %}
 				<div class="panel panel-default">
 					 <div class="panel-body">
+			{% for flashMessage in app.session.flashbag.get('notice') %}
+				<div class="form-group">
+				<div class="col-sm-2">
+				</div>
+				    <div class="col-sm-8">
+				        <h3>{{ flashMessage }}</h3>
+				    </div>
+				</div>
+				{% endfor %}
 						{{ form_start(form) }}
 						{{ form_widget(form) }}
 						{{ form_end(form) }}
@@ -17,7 +26,7 @@
 			</div>
 			{% endif %}
 {% endblock %}
-{% block title %}仓库管理{% endblock %}
+{% block title %}帐号管理{% endblock %}
 {% block javascripts %}
 {{ tinymce_init() }}
 {{ parent() }}

@@ -20,7 +20,7 @@ class Event
      */
     protected $title;
    /**
-     * @ORM\Column(name="sub_title",type="string", length=200)
+     * @ORM\Column(name="sub_title",type="string", length=200, nullable=true)
      */
     protected $subTitle;
    /**
@@ -45,6 +45,10 @@ class Event
      * @ORM\Column(name="create_ip", type="string", length=60)
      */
     private $createIp;
+   /**
+     * @ORM\Column(name="order_id",type="integer")
+     */
+    private $orderId;
 
 
 
@@ -194,5 +198,28 @@ class Event
     public function getSubTitle()
     {
         return $this->subTitle;
+    }
+
+    /**
+     * Set orderId
+     *
+     * @param integer $orderId
+     * @return Event
+     */
+    public function setOrderId($orderId)
+    {
+        $this->orderId = $orderId;
+
+        return $this;
+    }
+
+    /**
+     * Get orderId
+     *
+     * @return integer 
+     */
+    public function getOrderId()
+    {
+        return $this->orderId;
     }
 }

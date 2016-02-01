@@ -10,6 +10,7 @@
 			<thead>
 			 <tr role="row">
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1" style="width: 40px;">ID</th>
+				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">排序</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">名称</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">类型</th>
 				<th tabindex="0" aria-controls="table2" rowspan="1" colspan="1">地区</th>
@@ -30,6 +31,7 @@
 		 {% for p in pagination %}
 			<tr class="gradeA {% if loop.index is odd %} odd{% else %} even{% endif %}" role="row">
 				<td>{{ p.id }}</td>
+				<td>{{ p.orderId }}</td>
 				<td>{{ p.title }}</td>
 				<td>{{ p.type }}</td>
 				<td>{{ p.district }}</td>
