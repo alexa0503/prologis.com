@@ -13,7 +13,7 @@ class EventType extends AbstractType
 				'label' => '标题',
 			))
 			->add('orderId', 'text', array(
-				'label' => '排序(从小到大)',
+				'label' => '排序(从大到小)',
 			))
 			->add('subTitle', 'text', array(
 				'label' => '副标题',

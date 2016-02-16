@@ -215,7 +215,7 @@ class AdminController extends Controller
 	public function eventAction(Request $request)
 	{
 		$repository = $this->getDoctrine()->getRepository('AppBundle:Event');
-		$queryBuilder = $repository->createQueryBuilder('a')->orderBy('a.orderId','ASC');
+		$queryBuilder = $repository->createQueryBuilder('a')->orderBy('a.orderId','DESC');
 		
 		$query = $queryBuilder->getQuery();
 		$paginator  = $this->get('knp_paginator');
